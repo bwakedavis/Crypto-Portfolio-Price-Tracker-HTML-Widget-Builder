@@ -14,8 +14,6 @@
     <p>Sort Direction</p>
     <p>Color</p>
     <p>Extra CSS TABLE STLES</p>
-    <script>
-        const baseUrl = "https://api.coingecko.com/api/v3"
-    </script>
+    <script src="./JavaScript/main.js"></script>
 </body>
-</html>
+</html> 

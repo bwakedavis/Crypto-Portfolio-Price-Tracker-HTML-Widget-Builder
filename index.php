@@ -8,10 +8,9 @@
 <body>
     
     <form action="" method="post">
-    <p>Search</p>
     <label for="search">Search</label>
-    <input type="text">
-    <p>Fields - Name,Quantity, Purchase Price, Price, Cost, Market Value, Return, %Return</p>
+    <input type="text" id="search" name="search" value="search">
+
     <input type="checkbox" id="name" name="name" value="Name">
     <label for="Name"> Name </label><br>
     
@@ -35,7 +34,7 @@
 
     <input type="checkbox" id="percentage-return" name="percentage-return" value="percentage-return">
     <label for="Percentage Return"> % Return</label><br>
-    <p>Rows per page</p>
+ 
     <label for="rows">Rows per page:</label>
     <input list="rows" name="rows" id="row">
 
@@ -46,7 +45,7 @@
     <option value="40">
     <option value="50">
     </datalist>
-    <p>Sort Field</p>
+
     <label for="sorting">Sort by:</label>
     <input list="sorting-list" name="sorting" id="sort">
 
@@ -67,4 +66,4 @@
     <p>Pagination</p>
     <script src="./JavaScript/main.js"></script>
 </body>
-</html> 
+</html> JavaScript/main,js

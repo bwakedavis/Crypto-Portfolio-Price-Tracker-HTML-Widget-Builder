@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Portfolio Price Tracker HTML Widget builder</title>
+</head>
+<body>
+   
+    <form>
+        
+    <label for="search">Search</label>
+    <input type="text" id="search" name="search" value="search"><br>
+
+    <input type="checkbox" id="name" name="name" value="Name">
+    <label for="Name"> Name </label><br>
+    
+    <input type="checkbox" id="quantity" name="quantity" value="Quantity">
+    <label for="Quantity"> Quantity</label><br>
+
+    <input type="checkbox" id="purchase-price" name="purchase-price" value="Purchase Price">
+    <label for="Purchase Price">Purchase Price</label><br>
+
+    <input type="checkbox" id="price" name="price" value="Price">
+    <label for="Price">Price</label><br>
+
+    <input type="checkbox" id="cost" name="cost" value="Cost">
+    <label for="Cost">Cost</label><br>
+
+    <input type="checkbox" id="market-value" name="market-value" value="Market Value">
+    <label for="Market Value">Market Value</label><br>
+
+    <input type="checkbox" id="return" name="return" value="Return">
+    <label for="Return">Return</label><br>
+
+    <input type="checkbox" id="percentage-return" name="percentage-return" value="percentage-return">
+    <label for="Percentage Return"> % Return</label><br>
+
+    <label for="sort-direction">Sort Direction:</label>
+    <select name="sortdr" id="sort-direction">
+    <option value="ascending">Ascending</option>
+    <option value="descending">Descending</option>
+    </select>
+ 
+    <label for="rows">Rows per page:</label>
+    <select name="rows" id="row">
+        <option value="10">
+        <option value="20">
+        <option value="30">
+        <option value="40">
+        <option value="50">
+    </select>
+
+
+    <label for="sorting">Sort by:</label>
+    <input list="sorting-list" >
+    <select name="sorting" id="sort">
+        <option value="Name">
+        <option value="price">
+        <option value="Market Value">
+        <option value="Cost">
+        <option value="50">
+    </select>
+    
+    </form>
+    <div>
+        <p>Add Row for the con bought at</p>
+        
+        <p>Extra CSS TABLE STLES</p>
+        
+    
+        <table style="width:80%">
+      <tr>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Purchase Price</th>
+        <th>Cost</th>
+        <th>Market Value</th>
+        <th>Return</th>
+        <th>% Return</th>
+        <th></th>
+      </tr>
+      <tr>
+        <td>Jill</td>
+        <td>Smith</td>
+        <td>50</td>
+        <td>50</td>
+        <td>50</td>
+        <td>50</td>
+        <td>50</td>
+        <td>50</td>
+      </tr>
+      
+    </table>
+    
+    </div>
+    <p>Pagination</p>
+    <script src="JavaScript/main.js"></script>
+</body>
+</html> 

@@ -8,7 +8,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
     };
     getCoinList().then(data => {
         data.forEach((coin)=>{
-            console.log(coin.id)
+            
+            let firstRow = document.querySelector('.first-column');
+            console.log(coin);
+            let firstTd = document.createElement('tr');
+            firstTd.textContent = coin.name;
+            firstRow.appendChild(firstTd);
         })
     }).catch(err => console.log(err))
     

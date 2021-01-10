@@ -8,9 +8,6 @@
 <body>
    
     <form>
-        
-    <label for="search">Search</label>
-    <input type="text" id="search" name="search" value="search"><br>
 
     <input type="checkbox" id="name" name="name" value="Name">
     <label for="Name"> Name </label><br>
@@ -68,22 +65,45 @@
         
         <p>Extra CSS TABLE STLES</p>
         
-    
-        <table style="width:80%">
+        <form action="">
+            <label for="search">Search</label>
+            <input type="text" id="search" name="search" value="search"><br>
+        </form> 
+        <table style="width:100%">
+            <tr>
+              <th>Firstname</th>
+              <th>Lastname</th>
+              <th>Age</th>
+            </tr>
+            <tr>
+              <td>Jill</td>
+              <td>Smith</td>
+              <td>50</td>
+            </tr>
+            <tr>
+              <td>Eve</td>
+              <td>Jackson</td>
+              <td>94</td>
+            </tr>
+          </table>
+    <table style="width:80%">
+     <thead>
       <tr>
         <th>Name</th>
         <th>Quantity</th>
-        <th>Price</th>
         <th>Purchase Price</th>
+        <th>Price</th>
         <th>Cost</th>
         <th>Market Value</th>
         <th>Return</th>
         <th>% Return</th>
         <th></th>
       </tr>
-      <tr class="first-column">
+    </thead>
+      <tbody class="table-body">
         
-      </tr>
+      </tbody>
+
       
     </table>
     

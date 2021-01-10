@@ -5,7 +5,7 @@ Deliverable = HTML Widget builder to embed code in a bitrix24 website.
 See example attached.
 
 Functions:
-
+- Add new rows including same Coin bought at a different date/time/price. Example BTC bought on 1/1/2020 then another row for BTC bought on 1/1/2021.
 - Sort by Column
 - Quantity and Price are input fields
 - Change Colour/Style of table - MS Excel style.

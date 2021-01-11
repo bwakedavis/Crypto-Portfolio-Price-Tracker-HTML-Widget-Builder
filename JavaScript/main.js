@@ -27,6 +27,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
             let returnTd = document.createElement('td');
             let percentageReturnTd = document.createElement('td');
             let selectBoxTd = document.createElement('td');
+            let addFieldBtn = document.createElement('td');
 
             //Handle the name field
             let coinImage = document.createElement('img');
@@ -53,6 +54,11 @@ window.addEventListener('DOMContentLoaded', (event) => {
             checkBox.type = 'checkbox';
             checkBox.className = 'select-checkbox';
 
+            //handle add field button
+            let addButton = document.createElement('input');
+            addButton.type = 'button';
+            addButton.value = "Add Row"
+
 
 
             //append data into the DOM
@@ -72,10 +78,33 @@ window.addEventListener('DOMContentLoaded', (event) => {
             //append current price
             firstRd.appendChild(PriceTd);
             firstRow.appendChild(firstRd);
+
+            //append current cost
+            firstRd.appendChild(costTd);
+            firstRow.appendChild(firstRd);
+
+            //append current market value
+            firstRd.appendChild(marketValueTd);
+            firstRow.appendChild(firstRd);
+
+            //append current return
+            firstRd.appendChild(returnTd);
+            firstRow.appendChild(firstRd);
+
+            //append current percentage return
+            firstRd.appendChild(percentageReturnTd);
+            firstRow.appendChild(firstRd);
+
+
             //append checkbox
             selectBoxTd.appendChild(checkBox);
             firstRd.appendChild(selectBoxTd);
             firstRow.appendChild(firstRd)
+
+            //append add button
+            addFieldBtn.appendChild(addButton);
+            firstRd.appendChild(addFieldBtn);
+            firstRow.appendChild(firstRd);
         })
     }).catch(err => console.log(err))
     

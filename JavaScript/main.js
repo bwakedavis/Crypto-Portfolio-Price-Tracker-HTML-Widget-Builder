@@ -26,6 +26,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
             let marketValueTd = document.createElement('td');
             let returnTd = document.createElement('td');
             let percentageReturnTd = document.createElement('td');
+            let selectBoxTd = document.createElement('td');
 
             //Handle the name field
             let coinImage = document.createElement('img');
@@ -47,6 +48,10 @@ window.addEventListener('DOMContentLoaded', (event) => {
             //handle current price
             PriceTd.textContent = coin.current_price;
 
+            //handle checkbox td
+            let checkBox = document.createElement('input');
+            checkBox.type = 'checkbox';
+            checkBox.className = 'select-checkbox';
 
 
 
@@ -67,6 +72,10 @@ window.addEventListener('DOMContentLoaded', (event) => {
             //append current price
             firstRd.appendChild(PriceTd);
             firstRow.appendChild(firstRd);
+            //append checkbox
+            selectBoxTd.appendChild(checkBox);
+            firstRd.appendChild(selectBoxTd);
+            firstRow.appendChild(firstRd)
         })
     }).catch(err => console.log(err))
     

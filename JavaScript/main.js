@@ -106,6 +106,10 @@ window.addEventListener('DOMContentLoaded', (event) => {
             firstRd.appendChild(addFieldBtn);
             firstRow.appendChild(firstRd);
         })
-    }).catch(err => console.log(err))
+    }).catch(err => console.log(err));
+
+    function calculations(){
+        
+    }
     
 });

@@ -3,16 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
     <title>Crypto Portfolio Price Tracker HTML Widget builder</title>
 </head>
 <body>
 
-        
-    <label for="search">Search</label>
-    <input type="text" id="search" name="search" value="search"><br>
+  <form>
+    <div class="form-group">
+      <input type="text" class="form-control" id="search"  placeholder="search eg.bitcoin">
+    </div>
 
+  </form>
         
-    <table style="width:80%">
+    <table class="table">
      <thead>
       <tr>
         <th>Name</th>
@@ -23,7 +27,7 @@
         <th>Market Value</th>
         <th>Return</th>
         <th>% Return</th>
-        <th></th>
+        <th>Select Coin</th>
       </tr>
     </thead>
       <tbody class="table-body">

@@ -46,6 +46,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
             coinImage.style.width = "20px";
             coinImage.src = coin.image;
             let SpanTextTr = document.createElement('span');
+            SpanTextTr.classList.add('span-name')
             SpanTextTr.textContent = coin.name;
 
             //handle the quantity field
@@ -64,13 +65,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
             //handle checkbox td
             let checkBox = document.createElement('input');
             checkBox.type = 'checkbox';
-            checkBox.className = 'select-checkbox';
+            checkBox.classList.add('select-checkbox');
 
             //handle add field button
             let addButton = document.createElement('input');
             addButton.type = 'button';
             addButton.value = "Add Row";
-            addButton.classList.add('btn','btn-primary');
+            addButton.classList.add('btn','btn-primary','form-control');
 
 
 
@@ -121,6 +122,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
         })
     }).then(e =>{
         //Handle input events
+        let searchField = document.getElementById('search');
         let selectAllTr = document.querySelectorAll('.table-rows');
         selectAllTr.forEach((tr)=>{
             let nameInputImage = tr.childNodes[0].childNodes[0];
@@ -136,39 +138,71 @@ window.addEventListener('DOMContentLoaded', (event) => {
             let addBtn = tr.childNodes[9];
             quantityInputPlace.addEventListener('input', updateValue);
             purchasePriceInputPlace.addEventListener('input', updateValue);
+            searchField.addEventListener('input',searchFilter)
+            function searchFilter(e){
+                let filter = e.target.value.toUpperCase();
+                if(nameInputSpan.textContent.toLocaleUpperCase().indexOf(filter) > -1){
+                    addBtn.parentNode.style.display = '';
+                }else{
+                    addBtn.parentNode.style.display = 'none'
+                }
+            }
             addBtn.addEventListener('click', function(e){
                 
                 let duplicateRow = e.target.parentNode.parentNode;
                 let rowClassList = duplicateRow.classList.value;
                 let nameSrc = duplicateRow.childNodes[0].childNodes[0].src;
                 let nameCoin = duplicateRow.childNodes[0].childNodes[1].textContent;
+                let nameTdClassList = duplicateRow.childNodes[0].classList.value;
+                let quantityTdClassList = duplicateRow.childNodes[1].classList.value;
+                let quantityInputClassList = duplicateRow.childNodes[1].childNodes[0].classList.value;
+                let purchasePriceTdClassList = duplicateRow.childNodes[2].classList.value;
+                let purchasePriceInputClassList = duplicateRow.childNodes[2].childNodes[0].classList.value;
+                let priceTdClassList = duplicateRow.childNodes[3].classList.value;
+                let priceText = duplicateRow.childNodes[3].textContent;
+                let costTdClassList = duplicateRow.childNodes[4].classList.value;
+                let costText = duplicateRow.childNodes[4].textContent;
+                let marketValueTdClassList = duplicateRow.childNodes[5].classList.value;
+                let marketValueText = duplicateRow.childNodes[5].textContent;
+                let ReturnTdClassList = duplicateRow.childNodes[6].classList.value;
+                let ReturnText = duplicateRow.childNodes[6].textContent;
+                let percntageReturnTdClassList = duplicateRow.childNodes[7].classList.value;
+                let percntageReturnText = duplicateRow.childNodes[7].textContent;
+                let selectBoxClassList = duplicateRow.childNodes[8].childNodes[0].classList.value;
+                let addButtonClassList = duplicateRow.childNodes[9].childNodes[0].classList.value;
                 console.log(nameSrc)
                 duplicateRow.insertAdjacentHTML('afterend', 
                 `<tr class= '${rowClassList}'>
-                    <td >
+                    <td class='${nameTdClassList}'>
                         <img src= '${nameSrc}' style='width:20px'>
                         <span>${nameCoin}<span>
                     </td>
-                    <td >
-                        <input>
+                    <td class='${quantityTdClassList}'>
+                        <input class = '${quantityInputClassList}' type="number">
+                    </td>
+                    <td class='${purchasePriceTdClassList}'>
+                        <input class='${purchasePriceInputClassList}' type="number">
+                    </td>
+                    <td class='${priceTdClassList}'>${priceText}</td>
+                    <td class='${costTdClassList }'>${costText}</td>
+                    <td class='${marketValueTdClassList }'>${marketValueText}</td>
+                    <td class='${ReturnTdClassList}'>${ReturnText}</td>
+                    <td class='${percntageReturnTdClassList}'>${percntageReturnText}</td>
+                    <td>
+                        <input class='${selectBoxClassList}'  type="checkbox">
                     </td>
                     <td>
-                        <input>
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <input>
-                    </td>
-                    <td>
-                        <input>
-                    </td>
+                        <input class='${addButtonClassList}' type="text" value='Add Row'>
+                    </td> 
                 </tr>`
                 );
+                
+                
+                
+
+                
             });
+
             function updateValue(e) {
                 if(e.target.value !== null){
                    let costValue= quantityInputPlace.value * purchasePriceInputPlace.value;
@@ -183,13 +217,38 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 }
                 }
         })
-   
-
-       
         
+        
+    }).then(()=>{
+        let selectAllTr = document.querySelectorAll('.table-rows');
+        selectAllTr.forEach((tr)=>{
+            let nameInputImage = tr.childNodes[0].childNodes[0];
+            let nameInputSpan = tr.childNodes[0].childNodes[1];
+            let quantityInputPlace = tr.childNodes[1].childNodes[0];
+            let purchasePriceInputPlace = tr.childNodes[2].childNodes[0];
+            let priceTdPlace = tr.childNodes[3];
+            let costTdPlace = tr.childNodes[4];
+            let marketValueTdPlace = tr.childNodes[5];
+            let returnPlace = tr.childNodes[6];
+            let percentageReturnPlace = tr.childNodes[7];
+            let checkBoxStatus = tr.childNodes[8];
+            let addBtn = tr.childNodes[9];
+            quantityInputPlace.addEventListener('input', updateValue);
+            purchasePriceInputPlace.addEventListener('input', updateValue);
+            function updateValue(e) {
+                if(e.target.value !== null){
+                   let costValue= quantityInputPlace.value * purchasePriceInputPlace.value;
+                   let price = parseFloat(priceTdPlace.textContent)
+                   let marketValue = price * quantityInputPlace.value;
+                   let rateOfReturn = (price - purchasePriceInputPlace.value)/purchasePriceInputPlace.value;
+                   let percentageRateOfReturn = ((price - purchasePriceInputPlace.value)/(purchasePriceInputPlace.value) * 100);
+                   costTdPlace.textContent = costValue;
+                   marketValueTdPlace.textContent = marketValue;
+                   returnPlace.textContent = rateOfReturn;
+                   percentageReturnPlace.textContent = percentageRateOfReturn;
+                }
+                }
+    })
+
     }).catch(err => console.log(err));
-
-    
-
-   
 });

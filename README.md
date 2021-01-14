@@ -22,3 +22,29 @@ Non functional:
 See Builder Example attached and samples. Would like 2 quotes, one to do all Types and Templates in the Builder and one for just the Portfolio Type.
 
 Looking for a quick and simple widget builder.
+
+let selectAllTrNew = document.querySelectorAll('.table-rows');
+                selectAllTrNew.forEach((tr)=>{
+                    let quantityInputPlaceNew = tr.childNodes[1].childNodes[0];
+                    let purchasePriceInputPlaceNew = tr.childNodes[2].childNodes[0];
+                    let priceTdPlaceNew = tr.childNodes[3];
+                    let costTdPlaceNew = tr.childNodes[4];
+                    let marketValueTdPlaceNew = tr.childNodes[5];
+                    let returnPlaceNew = tr.childNodes[6];
+                    let percentageReturnPlaceNew = tr.childNodes[7];
+                    quantityInputPlaceNew.addEventListener('input', updateValue);
+                    purchasePriceInputPlaceNew.addEventListener('input', updateValue);
+
+                    function updateValue(e) {
+                        if(e.target.value !== null){
+                           let costValue= quantityInputPlaceNew.value * purchasePriceInputPlaceNew.value;
+                           let price = parseFloat(priceTdPlaceNew.textContent)
+                           let marketValue = price * quantityInputPlaceNew.value;
+                           let rateOfReturn = (price - purchasePriceInputPlaceNew.value)/purchasePriceInputPlaceNew.value;
+                           let percentageRateOfReturn = ((price - purchasePriceInputPlaceNew.value)/(purchasePriceInputPlaceNew.value) * 100);
+                           costTdPlaceNew.textContent = costValue;
+                           marketValueTdPlaceNew.textContent = marketValue;
+                           returnPlaceNew.textContent = rateOfReturn;
+                           percentageReturnPlaceNew.textContent = percentageRateOfReturn;
+                        }
+                        }

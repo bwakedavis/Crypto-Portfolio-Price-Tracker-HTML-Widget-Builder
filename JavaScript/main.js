@@ -121,33 +121,36 @@ window.addEventListener('DOMContentLoaded', (event) => {
         })
     }).then(e =>{
         //Handle input events
-        let priceTdPlace = document.querySelector('td.price.bitcoin');
-        let quantityInputPlace = document.querySelector('input.bitcoin');
-        let purchasePriceInputPlace = document.querySelector('input.bitcoin.purchase-price-input');
-        let costTdPlace = document.querySelector('td.cost.bitcoin');
-        let marketValueTdPlace = document.querySelector('td.market-value.bitcoin');
-        let returnPlace = document.querySelector('td.return.bitcoin');
-        let percentageReturnPlace = document.querySelector('td.percentage-return.bitcoin');
-        let quantityTdPrice = quantityInputPlace.parentNode;
-        let purchasePriceTdtPlace = purchasePriceInputPlace.parentNode;
+        let selectAllTr = document.querySelectorAll('.table-rows');
+        selectAllTr.forEach((tr)=>{
+            let quantityInputPlace = tr.childNodes[1].childNodes[0];
+            let purchasePriceInputPlace = tr.childNodes[2].childNodes[0];
+            let priceTdPlace = tr.childNodes[3];
+            let costTdPlace = tr.childNodes[4];
+            let marketValueTdPlace = tr.childNodes[5];
+            let returnPlace = tr.childNodes[6];
+            let percentageReturnPlace = tr.childNodes[7]
+            quantityInputPlace.addEventListener('input', updateValue);
+            purchasePriceInputPlace.addEventListener('input', updateValue);
 
-        quantityInputPlace.addEventListener('input', updateValue);
-        purchasePriceInputPlace.addEventListener('input', updateValue);
+            function updateValue(e) {
+                if(e.target.value !== null){
+                   let costValue= quantityInputPlace.value * purchasePriceInputPlace.value;
+                   let price = parseFloat(priceTdPlace.textContent)
+                   let marketValue = price * quantityInputPlace.value;
+                   let rateOfReturn = (price - purchasePriceInputPlace.value)/purchasePriceInputPlace.value;
+                   let percentageRateOfReturn = ((price - purchasePriceInputPlace.value)/(purchasePriceInputPlace.value) * 100);
+                   console.log(price)
+                   costTdPlace.textContent = costValue;
+                   marketValueTdPlace.textContent = marketValue;
+                   returnPlace.textContent = rateOfReturn;
+                   percentageReturnPlace.textContent = percentageRateOfReturn;
+                }
+                }
+        })
+   
 
-        function updateValue(e) {
-        if(e.target.value !== null){
-           let costValue= quantityInputPlace.value * purchasePriceInputPlace.value;
-           let price = parseFloat(priceTdPlace.textContent)
-           let marketValue = price * quantityInputPlace.value;
-           let rateOfReturn = (price - purchasePriceInputPlace.value)/purchasePriceInputPlace.value;
-           let percentageRateOfReturn = ((price - purchasePriceInputPlace.value)/(purchasePriceInputPlace.value) * 100);
-           console.log(price)
-           costTdPlace.textContent = costValue;
-           marketValueTdPlace.textContent = marketValue;
-           returnPlace.textContent = rateOfReturn;
-           percentageReturnPlace.textContent = percentageRateOfReturn;
-        }
-        }
+       
         
     }).catch(err => console.log(err));
 

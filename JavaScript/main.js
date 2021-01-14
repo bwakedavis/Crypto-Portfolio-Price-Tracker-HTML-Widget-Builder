@@ -20,7 +20,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
             firstRd.classList.add(idAsClass)
             //create table data elements
             let nameTd = document.createElement('td');
-            nameTd.classList.add('.name-td');
+            nameTd.classList.add('name-td');
             nameTd.classList.add(idAsClass);
             let quantityTd = document.createElement('td');
             quantityTd.classList.add(idAsClass)
@@ -123,16 +123,52 @@ window.addEventListener('DOMContentLoaded', (event) => {
         //Handle input events
         let selectAllTr = document.querySelectorAll('.table-rows');
         selectAllTr.forEach((tr)=>{
+            let nameInputImage = tr.childNodes[0].childNodes[0];
+            let nameInputSpan = tr.childNodes[0].childNodes[1];
             let quantityInputPlace = tr.childNodes[1].childNodes[0];
             let purchasePriceInputPlace = tr.childNodes[2].childNodes[0];
             let priceTdPlace = tr.childNodes[3];
             let costTdPlace = tr.childNodes[4];
             let marketValueTdPlace = tr.childNodes[5];
             let returnPlace = tr.childNodes[6];
-            let percentageReturnPlace = tr.childNodes[7]
+            let percentageReturnPlace = tr.childNodes[7];
+            let checkBoxStatus = tr.childNodes[8];
+            let addBtn = tr.childNodes[9];
             quantityInputPlace.addEventListener('input', updateValue);
             purchasePriceInputPlace.addEventListener('input', updateValue);
-
+            addBtn.addEventListener('click', function(e){
+                
+                let duplicateRow = e.target.parentNode.parentNode;
+                let rowClassList = duplicateRow.classList.value;
+                let nameSrc = duplicateRow.childNodes[0].childNodes[0].src;
+                let nameCoin = duplicateRow.childNodes[0].childNodes[1].textContent;
+                console.log(nameSrc)
+                duplicateRow.insertAdjacentHTML('afterend', 
+                `<tr class= '${rowClassList}'>
+                    <td >
+                        <img src= '${nameSrc}' style='width:20px'>
+                        <span>${nameCoin}<span>
+                    </td>
+                    <td >
+                        <input>
+                    </td>
+                    <td>
+                        <input>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <input>
+                    </td>
+                    <td>
+                        <input>
+                    </td>
+                </tr>`
+                );
+            });
             function updateValue(e) {
                 if(e.target.value !== null){
                    let costValue= quantityInputPlace.value * purchasePriceInputPlace.value;
@@ -140,7 +176,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
                    let marketValue = price * quantityInputPlace.value;
                    let rateOfReturn = (price - purchasePriceInputPlace.value)/purchasePriceInputPlace.value;
                    let percentageRateOfReturn = ((price - purchasePriceInputPlace.value)/(purchasePriceInputPlace.value) * 100);
-                   console.log(price)
                    costTdPlace.textContent = costValue;
                    marketValueTdPlace.textContent = marketValue;
                    returnPlace.textContent = rateOfReturn;

@@ -11,6 +11,11 @@
 <main>
   <form>
     <div class="form-group">
+      <label for="exampleFormControlInput1">Number of Rows</label>
+      <input type="email" class="form-control" id="rows" placeholder="5">
+    </div>
+  <form>
+    <div class="form-group">
       <input type="text" class="form-control" id="search"  placeholder="search eg.bitcoin">
     </div>
 
@@ -30,19 +35,25 @@
         <th>Select Coin</th>
       </tr>
     </thead>
-      <tbody class="table-body">
-        
+      <tbody class="table-body test-list">
+  
       </tbody>
 
-      
     </table>
-    
+    <nav aria-label="Page navigation">
+      <ul class="pagination">
+        <li class="page-item"><a class="page-link" id="previous" href="#">Previous</a></li>
+        <li class="page-item"><a class="page-link" id="next" href="#">Next</a></li>
+      </ul>
+    </nav>
     </div>
-    <p>Pagination</p>
+   
   </main>
     <footer>
       &copy; <a href="https://financialplugins.com/" target="_blank">FinancialPlugins.com</a>
   </footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/2.3.0/list.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script> 
     <script src="JavaScript/main.js"></script>
 </body>
 </html> 

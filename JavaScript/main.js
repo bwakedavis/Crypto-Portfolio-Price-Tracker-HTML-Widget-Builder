@@ -1,42 +1,74 @@
 window.addEventListener('DOMContentLoaded', (event) => {
+    //Check if the dom has parsed HTML
     console.log('DOM fully loaded and parsed');
+    let pageNumber = 1;
+    let rows = document.querySelector('#rows');
+    let next = document.querySelector('#next');
+    let previous = document.querySelector('#previous');
+    next.addEventListener('click',function(e){
+        pageNumber = pageNumber + 1;
+    });
+    previous.addEventListener('click',function(e){
+        pageNumber = pageNumber - 1;
+    })
+    let rowNumber = 0;
+    rows.addEventListener('input',updateRow)
+    function updateRow(e){
+        rowNumber = parseInt(e.target.value)
+        
+    // Making the API call
     const baseUrl = "https://api.coingecko.com/api/v3/";
     const PriceAndMarketCap = "https://api.coingecko.com/api/v3/https://api.coingecko.com/api/v3/";
     async function getCoinList(){
-        let response = await fetch(`${baseUrl}coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false`);
+         //Select custom properties to generate the table
+        
+        let response = await fetch(`${baseUrl}coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${rowNumber}&page=${pageNumber}&sparkline=false`);
         let data = await response.json();
         return data;
     };
+
+
+
+    
+    //Getting the JSON DATA and displaying it in the DOM
     getCoinList().then(data => {
         data.forEach((coin)=>{
             
-            //selec t the table body
+            //selec the table body
             let firstRow = document.querySelector('.table-body');
-            // console.log(coin.image);
             //create table rows
             let firstRd = document.createElement('tr');
             firstRd.classList.add('table-rows');
             let idAsClass = coin.id;
             firstRd.classList.add(idAsClass)
             //create table data elements
+            //Name td
             let nameTd = document.createElement('td');
             nameTd.classList.add('name-td');
             nameTd.classList.add(idAsClass);
+            //Quantity td
             let quantityTd = document.createElement('td');
             quantityTd.classList.add(idAsClass)
+            //Purchase td
             let purchasePriceTd = document.createElement('td');
             purchasePriceTd.classList.add("purchase-price",idAsClass)
+            //price td
             let PriceTd = document.createElement('td');
             PriceTd.classList.add("price",idAsClass);
+            //cost td
             let costTd = document.createElement('td');
             costTd.classList.add("cost",idAsClass);
+            //market value td
             let marketValueTd = document.createElement('td');
             marketValueTd.classList.add("market-value",idAsClass)
+            //return td
             let returnTd = document.createElement('td');
             returnTd.classList.add("return",idAsClass);
+            //percentage return td
             let percentageReturnTd = document.createElement('td');
             percentageReturnTd.classList.add("percentage-return",idAsClass);
             let selectBoxTd = document.createElement('td');
+            //selectbox td
             selectBoxTd.classList.add(idAsClass)
             let addFieldBtn = document.createElement('td');
             selectBoxTd.classList.add(idAsClass)
@@ -68,10 +100,10 @@ window.addEventListener('DOMContentLoaded', (event) => {
             checkBox.classList.add('select-checkbox');
 
             //handle add field button
-            let addButton = document.createElement('input');
-            addButton.type = 'button';
-            addButton.value = "Add Row";
-            addButton.classList.add('btn','btn-primary','form-control');
+            // let addButton = document.createElement('input');
+            // addButton.type = 'button';
+            // addButton.value = "Add Row";
+            // addButton.classList.add('btn','btn-primary','form-control');
 
 
 
@@ -115,16 +147,17 @@ window.addEventListener('DOMContentLoaded', (event) => {
             firstRd.appendChild(selectBoxTd);
             firstRow.appendChild(firstRd)
 
-            //append add button
-            addFieldBtn.appendChild(addButton);
-            firstRd.appendChild(addFieldBtn);
-            firstRow.appendChild(firstRd);
+            // //append add button
+            // addFieldBtn.appendChild(addButton);
+            // firstRd.appendChild(addFieldBtn);
+            // firstRow.appendChild(firstRd);
         })
     }).then(e =>{
         //Handle input events
         let searchField = document.getElementById('search');
         let selectAllTr = document.querySelectorAll('.table-rows');
         selectAllTr.forEach((tr)=>{
+            //Select each element
             let nameInputImage = tr.childNodes[0].childNodes[0];
             let nameInputSpan = tr.childNodes[0].childNodes[1];
             let quantityInputPlace = tr.childNodes[1].childNodes[0];
@@ -135,74 +168,85 @@ window.addEventListener('DOMContentLoaded', (event) => {
             let returnPlace = tr.childNodes[6];
             let percentageReturnPlace = tr.childNodes[7];
             let checkBoxStatus = tr.childNodes[8];
-            let addBtn = tr.childNodes[9];
+            // let addBtn = tr.childNodes[9];
+            // Listen to input events and calculations
             quantityInputPlace.addEventListener('input', updateValue);
             purchasePriceInputPlace.addEventListener('input', updateValue);
             searchField.addEventListener('input',searchFilter)
+            //Search functionality
             function searchFilter(e){
                 let filter = e.target.value.toUpperCase();
                 if(nameInputSpan.textContent.toLocaleUpperCase().indexOf(filter) > -1){
-                    addBtn.parentNode.style.display = '';
+                    priceTdPlace.parentNode.style.display = '';
                 }else{
-                    addBtn.parentNode.style.display = 'none'
+                    priceTdPlace.parentNode.style.display = 'none'
                 }
             }
-            addBtn.addEventListener('click', function(e){
-                
-                let duplicateRow = e.target.parentNode.parentNode;
-                let rowClassList = duplicateRow.classList.value;
-                let nameSrc = duplicateRow.childNodes[0].childNodes[0].src;
-                let nameCoin = duplicateRow.childNodes[0].childNodes[1].textContent;
-                let nameTdClassList = duplicateRow.childNodes[0].classList.value;
-                let quantityTdClassList = duplicateRow.childNodes[1].classList.value;
-                let quantityInputClassList = duplicateRow.childNodes[1].childNodes[0].classList.value;
-                let purchasePriceTdClassList = duplicateRow.childNodes[2].classList.value;
-                let purchasePriceInputClassList = duplicateRow.childNodes[2].childNodes[0].classList.value;
-                let priceTdClassList = duplicateRow.childNodes[3].classList.value;
-                let priceText = duplicateRow.childNodes[3].textContent;
-                let costTdClassList = duplicateRow.childNodes[4].classList.value;
-                let costText = duplicateRow.childNodes[4].textContent;
-                let marketValueTdClassList = duplicateRow.childNodes[5].classList.value;
-                let marketValueText = duplicateRow.childNodes[5].textContent;
-                let ReturnTdClassList = duplicateRow.childNodes[6].classList.value;
-                let ReturnText = duplicateRow.childNodes[6].textContent;
-                let percntageReturnTdClassList = duplicateRow.childNodes[7].classList.value;
-                let percntageReturnText = duplicateRow.childNodes[7].textContent;
-                let selectBoxClassList = duplicateRow.childNodes[8].childNodes[0].classList.value;
-                let addButtonClassList = duplicateRow.childNodes[9].childNodes[0].classList.value;
-                console.log(nameSrc)
-                duplicateRow.insertAdjacentHTML('afterend', 
-                `<tr class= '${rowClassList}'>
-                    <td class='${nameTdClassList}'>
-                        <img src= '${nameSrc}' style='width:20px'>
-                        <span>${nameCoin}<span>
-                    </td>
-                    <td class='${quantityTdClassList}'>
-                        <input class = '${quantityInputClassList}' type="number">
-                    </td>
-                    <td class='${purchasePriceTdClassList}'>
-                        <input class='${purchasePriceInputClassList}' type="number">
-                    </td>
-                    <td class='${priceTdClassList}'>${priceText}</td>
-                    <td class='${costTdClassList }'>${costText}</td>
-                    <td class='${marketValueTdClassList }'>${marketValueText}</td>
-                    <td class='${ReturnTdClassList}'>${ReturnText}</td>
-                    <td class='${percntageReturnTdClassList}'>${percntageReturnText}</td>
-                    <td>
-                        <input class='${selectBoxClassList}'  type="checkbox">
-                    </td>
-                    <td>
-                        <input class='${addButtonClassList}' type="text" value='Add Row'>
-                    </td> 
-                </tr>`
-                );
-                
-                
-                
 
+            // //Create new rows
+            // addBtn.addEventListener('click', function(e){
                 
-            });
-
+            //     let duplicateRow = e.target.parentNode.parentNode;
+            //     let rowClassList = duplicateRow.classList.value;
+            //     let nameSrc = duplicateRow.childNodes[0].childNodes[0].src;
+            //     let nameCoin = duplicateRow.childNodes[0].childNodes[1].textContent;
+            //     let nameTdClassList = duplicateRow.childNodes[0].classList.value;
+            //     let quantityTdClassList = duplicateRow.childNodes[1].classList.value;
+            //     let quantityInputClassList = duplicateRow.childNodes[1].childNodes[0].classList.value;
+            //     let purchasePriceTdClassList = duplicateRow.childNodes[2].classList.value;
+            //     let purchasePriceInputClassList = duplicateRow.childNodes[2].childNodes[0].classList.value;
+            //     let priceTdClassList = duplicateRow.childNodes[3].classList.value;
+            //     let priceText = duplicateRow.childNodes[3].textContent;
+            //     let costTdClassList = duplicateRow.childNodes[4].classList.value;
+            //     let costText = duplicateRow.childNodes[4].textContent;
+            //     let marketValueTdClassList = duplicateRow.childNodes[5].classList.value;
+            //     let marketValueText = duplicateRow.childNodes[5].textContent;
+            //     let ReturnTdClassList = duplicateRow.childNodes[6].classList.value;
+            //     let ReturnText = duplicateRow.childNodes[6].textContent;
+            //     let percntageReturnTdClassList = duplicateRow.childNodes[7].classList.value;
+            //     let percntageReturnText = duplicateRow.childNodes[7].textContent;
+            //     let selectBoxClassList = duplicateRow.childNodes[8].childNodes[0].classList.value;
+            //     let addButtonClassList = duplicateRow.childNodes[9].childNodes[0].classList.value;
+            //     async function insertElements(){
+            //     await duplicateRow.insertAdjacentHTML('afterend', 
+            //     `<tr class= '${rowClassList}'>
+            //         <td class='${nameTdClassList}'>
+            //             <img src= '${nameSrc}' style='width:20px'>
+            //             <span>${nameCoin}<span>
+            //         </td>
+            //         <td class='${quantityTdClassList}'>
+            //             <input class = '${quantityInputClassList}' type="number" value='1'>
+            //         </td>
+            //         <td class='${purchasePriceTdClassList}'>
+            //             <input class='${purchasePriceInputClassList}' type="number">
+            //         </td>
+            //         <td class='${priceTdClassList}'>${priceText}</td>
+            //         <td class='${costTdClassList }'>${costText}</td>
+            //         <td class='${marketValueTdClassList }'>${marketValueText}</td>
+            //         <td class='${ReturnTdClassList}'>${ReturnText}</td>
+            //         <td class='${percntageReturnTdClassList}'>${percntageReturnText}</td>
+            //         <td>
+            //             <input class='${selectBoxClassList}'  type="checkbox">
+            //         </td>
+            //         <td>
+            //             <input class='${addButtonClassList}' type="button" value='Add Row'>
+            //         </td> 
+            //     </tr>`
+            //     );
+            // }
+            //   insertElements().then(()=>{
+            //     setTimeout(function(){ 
+            //         let allTrs = document.querySelectorAll('.table-rows')
+            //         allTrs.forEach((tr)=>{
+            //             // console.log(tr.childNodes[0].nextSibling.textContent)
+            //             console.log(tr.childNodes[2].nextSibling)
+            //         })
+            //      }, 500);
+                  
+            //   }) 
+                    
+            // });
+            //function to do input calculations
             function updateValue(e) {
                 if(e.target.value !== null){
                    let costValue= quantityInputPlace.value * purchasePriceInputPlace.value;
@@ -219,36 +263,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
         })
         
         
-    }).then(()=>{
-        let selectAllTr = document.querySelectorAll('.table-rows');
-        selectAllTr.forEach((tr)=>{
-            let nameInputImage = tr.childNodes[0].childNodes[0];
-            let nameInputSpan = tr.childNodes[0].childNodes[1];
-            let quantityInputPlace = tr.childNodes[1].childNodes[0];
-            let purchasePriceInputPlace = tr.childNodes[2].childNodes[0];
-            let priceTdPlace = tr.childNodes[3];
-            let costTdPlace = tr.childNodes[4];
-            let marketValueTdPlace = tr.childNodes[5];
-            let returnPlace = tr.childNodes[6];
-            let percentageReturnPlace = tr.childNodes[7];
-            let checkBoxStatus = tr.childNodes[8];
-            let addBtn = tr.childNodes[9];
-            quantityInputPlace.addEventListener('input', updateValue);
-            purchasePriceInputPlace.addEventListener('input', updateValue);
-            function updateValue(e) {
-                if(e.target.value !== null){
-                   let costValue= quantityInputPlace.value * purchasePriceInputPlace.value;
-                   let price = parseFloat(priceTdPlace.textContent)
-                   let marketValue = price * quantityInputPlace.value;
-                   let rateOfReturn = (price - purchasePriceInputPlace.value)/purchasePriceInputPlace.value;
-                   let percentageRateOfReturn = ((price - purchasePriceInputPlace.value)/(purchasePriceInputPlace.value) * 100);
-                   costTdPlace.textContent = costValue;
-                   marketValueTdPlace.textContent = marketValue;
-                   returnPlace.textContent = rateOfReturn;
-                   percentageReturnPlace.textContent = percentageRateOfReturn;
-                }
-                }
-    })
-
     }).catch(err => console.log(err));
+    }
 });

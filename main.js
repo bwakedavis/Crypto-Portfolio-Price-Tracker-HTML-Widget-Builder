@@ -5,16 +5,33 @@ window.addEventListener('DOMContentLoaded', (event) => {
     let rows = document.querySelector('#rows');
     let next = document.querySelector('#next');
     let previous = document.querySelector('#previous');
+    function updateRow(e){
+        rowNumber = parseInt(e.target.value)
+    }
     next.addEventListener('click',function(e){
+        e.preventDefault()
+        let trow = document.querySelectorAll('.table-rows');
+        trow.forEach((tr)=>{
+            tr.remove()
+        })
         pageNumber = pageNumber + 1;
+        updateAll()
     });
     previous.addEventListener('click',function(e){
+        e.preventDefault();
+        let trow = document.querySelectorAll('.table-rows');
+        trow.forEach((tr)=>{
+            tr.remove()
+        })
         pageNumber = pageNumber - 1;
+        updateAll()
     })
     let rowNumber = 0;
     rows.addEventListener('input',updateRow)
-    function updateRow(e){
-        rowNumber = parseInt(e.target.value)
+    let preButton = document.querySelector('#pre-btn');
+    preButton.addEventListener('click',updateAll);
+
+    function updateAll(e){
         
     // Making the API call
     const baseUrl = "https://api.coingecko.com/api/v3/";
@@ -182,7 +199,91 @@ window.addEventListener('DOMContentLoaded', (event) => {
                     priceTdPlace.parentNode.style.display = 'none'
                 }
             }
+            let checkBox = document.querySelectorAll('.select-checkbox');
+            let code = document.querySelector('.html-code')
+            checkBox.forEach((box)=>{
+                box.addEventListener('change', function(e) {
+                    if (box.checked) {
+                    let duplicateRow = box.parentNode.parentNode;
+                    let nameSrc = duplicateRow.childNodes[0].childNodes[0].src;
+                    let nameCoin = duplicateRow.childNodes[0].childNodes[1].textContent;
+                    let quantityValue = duplicateRow.childNodes[1].childNodes[0].value
+                    let purchasePriceValue = duplicateRow.childNodes[2].childNodes[0].value
+                    let priceText = duplicateRow.childNodes[3].textContent;
+                    let costText = duplicateRow.childNodes[4].textContent;
+                    let marketValueText = duplicateRow.childNodes[5].textContent;
+                    let ReturnText = duplicateRow.childNodes[6].textContent;
+                    let percntageReturnText = duplicateRow.childNodes[7].textContent;
+                    let selectBoxClassList = duplicateRow.childNodes[8].childNodes[0].classList.value;
+                    // let addButtonClassList = duplicateRow.childNodes[9].childNodes[0].classList.value;
+                    let newTbody = document.querySelector('.new-tbody');
+                    let tr = document.createElement('tr');
+                    let tdName = document.createElement('td');
+                    let imgTag = document.createElement('img');
+                    imgTag.src = nameSrc;
+                    imgTag.style.width = '20px';
+                    let spanTag = document.createElement('span');
+                    spanTag.textContent = nameCoin;
+                    let qtTdTag = document.createElement('td');
+                    let qtInputTag= document.createElement('input');
+                    qtInputTag.type = 'number';
+                    qtInputTag.addEventListener('input',function(e){
+                        console.log(e.target.value);
+                    })
+                    let ppTdTag = document.createElement('td');
+                    let ppInputTag= document.createElement('input');
+                    ppInputTag.type = 'number';
+                    let priceTdTag = document.createElement('td');
+                    priceTdTag.textContent = priceText;
+                    let costTdTag = document.createElement('td');
+                    costTdTag.textContent = costText;
+                    let marketValueTdTag = document.createElement('td');
+                    marketValueTdTag.textContent = marketValueText;
+                    let returnTdTag = document.createElement('td');
+                    returnTdTag.textContent = ReturnText;
+                    let percntageReurnTdTag = document.createElement('td');
+                    percntageReurnTdTag.textContent = percntageReturnText;
+                    
+                    //name
+                    tdName.appendChild(imgTag);
+                    tdName.appendChild(spanTag);
+                    tr.appendChild(tdName);
 
+                    //quantity
+                    qtTdTag.textContent = quantityValue;
+                    tr.appendChild(qtTdTag);
+
+                    //purchase price
+                    ppTdTag.textContent = purchasePriceValue;
+                    tr.appendChild(ppTdTag);
+
+                    //price
+                    tr.appendChild(priceTdTag);
+
+                    //cost
+                    tr.appendChild(costTdTag);
+
+                    //marketvalue
+                    tr.appendChild(marketValueTdTag);
+
+                    //return
+                    tr.appendChild(returnTdTag);
+
+                    //preturn
+                    tr.appendChild(percntageReurnTdTag);
+
+                    newTbody.appendChild(tr);
+
+                    
+                    
+                    } else if(!box.checked){
+                        let newTbody = document.querySelector('.new-tbody');
+                        newTbody.appendChild('');
+                    }
+                  });
+                  
+            })
+            checkBox.remove(checkBox.length - 2)
             // //Create new rows
             // addBtn.addEventListener('click', function(e){
                 

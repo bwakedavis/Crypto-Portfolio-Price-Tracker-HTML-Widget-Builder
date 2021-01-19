@@ -50,3 +50,71 @@ let selectAllTrNew = document.querySelectorAll('.table-rows');
                         }
 
                          https://s3-eu-west-1.amazonaws.com/greg.ie/colorart.zip 
+
+
+
+
+
+                         // //Create new rows
+            // addBtn.addEventListener('click', function(e){
+                
+            //     let duplicateRow = e.target.parentNode.parentNode;
+            //     let rowClassList = duplicateRow.classList.value;
+            //     let nameSrc = duplicateRow.childNodes[0].childNodes[0].src;
+            //     let nameCoin = duplicateRow.childNodes[0].childNodes[1].textContent;
+            //     let nameTdClassList = duplicateRow.childNodes[0].classList.value;
+            //     let quantityTdClassList = duplicateRow.childNodes[1].classList.value;
+            //     let quantityInputClassList = duplicateRow.childNodes[1].childNodes[0].classList.value;
+            //     let purchasePriceTdClassList = duplicateRow.childNodes[2].classList.value;
+            //     let purchasePriceInputClassList = duplicateRow.childNodes[2].childNodes[0].classList.value;
+            //     let priceTdClassList = duplicateRow.childNodes[3].classList.value;
+            //     let priceText = duplicateRow.childNodes[3].textContent;
+            //     let costTdClassList = duplicateRow.childNodes[4].classList.value;
+            //     let costText = duplicateRow.childNodes[4].textContent;
+            //     let marketValueTdClassList = duplicateRow.childNodes[5].classList.value;
+            //     let marketValueText = duplicateRow.childNodes[5].textContent;
+            //     let ReturnTdClassList = duplicateRow.childNodes[6].classList.value;
+            //     let ReturnText = duplicateRow.childNodes[6].textContent;
+            //     let percntageReturnTdClassList = duplicateRow.childNodes[7].classList.value;
+            //     let percntageReturnText = duplicateRow.childNodes[7].textContent;
+            //     let selectBoxClassList = duplicateRow.childNodes[8].childNodes[0].classList.value;
+            //     let addButtonClassList = duplicateRow.childNodes[9].childNodes[0].classList.value;
+            //     async function insertElements(){
+            //     await duplicateRow.insertAdjacentHTML('afterend', 
+            //     `<tr class= '${rowClassList}'>
+            //         <td class='${nameTdClassList}'>
+            //             <img src= '${nameSrc}' style='width:20px'>
+            //             <span>${nameCoin}<span>
+            //         </td>
+            //         <td class='${quantityTdClassList}'>
+            //             <input class = '${quantityInputClassList}' type="number" value='1'>
+            //         </td>
+            //         <td class='${purchasePriceTdClassList}'>
+            //             <input class='${purchasePriceInputClassList}' type="number">
+            //         </td>
+            //         <td class='${priceTdClassList}'>${priceText}</td>
+            //         <td class='${costTdClassList }'>${costText}</td>
+            //         <td class='${marketValueTdClassList }'>${marketValueText}</td>
+            //         <td class='${ReturnTdClassList}'>${ReturnText}</td>
+            //         <td class='${percntageReturnTdClassList}'>${percntageReturnText}</td>
+            //         <td>
+            //             <input class='${selectBoxClassList}'  type="checkbox">
+            //         </td>
+            //         <td>
+            //             <input class='${addButtonClassList}' type="button" value='Add Row'>
+            //         </td> 
+            //     </tr>`
+            //     );
+            // }
+            //   insertElements().then(()=>{
+            //     setTimeout(function(){ 
+            //         let allTrs = document.querySelectorAll('.table-rows')
+            //         allTrs.forEach((tr)=>{
+            //             // console.log(tr.childNodes[0].nextSibling.textContent)
+            //             console.log(tr.childNodes[2].nextSibling)
+            //         })
+            //      }, 500);
+                  
+            //   }) 
+                    
+            // });

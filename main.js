@@ -2,11 +2,21 @@ window.addEventListener('DOMContentLoaded', (event) => {
     //Check if the dom has parsed HTML
     console.log('DOM fully loaded and parsed');
     let pageNumber = 1;
+    let tb = document.querySelector('.table')
+    let displayData = document.querySelectorAll('.none');
     let rows = document.querySelector('#rows');
     let next = document.querySelector('#next');
     let previous = document.querySelector('#previous');
+    let color = document.querySelector('#color');
+    let border = document.querySelector('#border');
     function updateRow(e){
-        rowNumber = parseInt(e.target.value)
+        rowNumber = parseInt(e.target.value);
+    }
+    function changeColor(e){
+        tb.style.color = e.target.value;
+    }
+    function changeBorder(e){
+        tb.style.color = e.target.value;
     }
     next.addEventListener('click',function(e){
         e.preventDefault()
@@ -27,6 +37,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
         updateAll()
     })
     let rowNumber = 0;
+    color.addEventListener('input',changeColor);
+    border.addEventListener('input',changeBorder)
     rows.addEventListener('input',updateRow)
     let preButton = document.querySelector('#pre-btn');
     preButton.addEventListener('click',updateAll);
@@ -50,7 +62,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
     //Getting the JSON DATA and displaying it in the DOM
     getCoinList().then(data => {
         data.forEach((coin)=>{
-            
+            displayData.forEach((d)=>{
+                d.style.display = ''
+            })
             //selec the table body
             let firstRow = document.querySelector('.table-body');
             //create table rows
@@ -175,6 +189,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
         let selectAllTr = document.querySelectorAll('.table-rows');
         selectAllTr.forEach((tr)=>{
             //Select each element
+            tr.parentElement.parentElement.style.color = color.value;
             let nameInputImage = tr.childNodes[0].childNodes[0];
             let nameInputSpan = tr.childNodes[0].childNodes[1];
             let quantityInputPlace = tr.childNodes[1].childNodes[0];
@@ -284,69 +299,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
                   
             })
             checkBox.remove(checkBox.length - 2)
-            // //Create new rows
-            // addBtn.addEventListener('click', function(e){
-                
-            //     let duplicateRow = e.target.parentNode.parentNode;
-            //     let rowClassList = duplicateRow.classList.value;
-            //     let nameSrc = duplicateRow.childNodes[0].childNodes[0].src;
-            //     let nameCoin = duplicateRow.childNodes[0].childNodes[1].textContent;
-            //     let nameTdClassList = duplicateRow.childNodes[0].classList.value;
-            //     let quantityTdClassList = duplicateRow.childNodes[1].classList.value;
-            //     let quantityInputClassList = duplicateRow.childNodes[1].childNodes[0].classList.value;
-            //     let purchasePriceTdClassList = duplicateRow.childNodes[2].classList.value;
-            //     let purchasePriceInputClassList = duplicateRow.childNodes[2].childNodes[0].classList.value;
-            //     let priceTdClassList = duplicateRow.childNodes[3].classList.value;
-            //     let priceText = duplicateRow.childNodes[3].textContent;
-            //     let costTdClassList = duplicateRow.childNodes[4].classList.value;
-            //     let costText = duplicateRow.childNodes[4].textContent;
-            //     let marketValueTdClassList = duplicateRow.childNodes[5].classList.value;
-            //     let marketValueText = duplicateRow.childNodes[5].textContent;
-            //     let ReturnTdClassList = duplicateRow.childNodes[6].classList.value;
-            //     let ReturnText = duplicateRow.childNodes[6].textContent;
-            //     let percntageReturnTdClassList = duplicateRow.childNodes[7].classList.value;
-            //     let percntageReturnText = duplicateRow.childNodes[7].textContent;
-            //     let selectBoxClassList = duplicateRow.childNodes[8].childNodes[0].classList.value;
-            //     let addButtonClassList = duplicateRow.childNodes[9].childNodes[0].classList.value;
-            //     async function insertElements(){
-            //     await duplicateRow.insertAdjacentHTML('afterend', 
-            //     `<tr class= '${rowClassList}'>
-            //         <td class='${nameTdClassList}'>
-            //             <img src= '${nameSrc}' style='width:20px'>
-            //             <span>${nameCoin}<span>
-            //         </td>
-            //         <td class='${quantityTdClassList}'>
-            //             <input class = '${quantityInputClassList}' type="number" value='1'>
-            //         </td>
-            //         <td class='${purchasePriceTdClassList}'>
-            //             <input class='${purchasePriceInputClassList}' type="number">
-            //         </td>
-            //         <td class='${priceTdClassList}'>${priceText}</td>
-            //         <td class='${costTdClassList }'>${costText}</td>
-            //         <td class='${marketValueTdClassList }'>${marketValueText}</td>
-            //         <td class='${ReturnTdClassList}'>${ReturnText}</td>
-            //         <td class='${percntageReturnTdClassList}'>${percntageReturnText}</td>
-            //         <td>
-            //             <input class='${selectBoxClassList}'  type="checkbox">
-            //         </td>
-            //         <td>
-            //             <input class='${addButtonClassList}' type="button" value='Add Row'>
-            //         </td> 
-            //     </tr>`
-            //     );
-            // }
-            //   insertElements().then(()=>{
-            //     setTimeout(function(){ 
-            //         let allTrs = document.querySelectorAll('.table-rows')
-            //         allTrs.forEach((tr)=>{
-            //             // console.log(tr.childNodes[0].nextSibling.textContent)
-            //             console.log(tr.childNodes[2].nextSibling)
-            //         })
-            //      }, 500);
-                  
-            //   }) 
-                    
-            // });
+            
             //function to do input calculations
             function updateValue(e) {
                 if(e.target.value !== null){

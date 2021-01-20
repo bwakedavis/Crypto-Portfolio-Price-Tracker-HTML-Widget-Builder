@@ -9,6 +9,28 @@ window.addEventListener('DOMContentLoaded', (event) => {
     let previous = document.querySelector('#previous');
     let color = document.querySelector('#color');
     let border = document.querySelector('#border');
+    let markup = ` <table class="table none">
+    <thead>
+     <tr>
+       <th>Name</th>
+       <th>Quantity</th>
+       <th>Purchase Price</th>
+       <th>Price</th>
+       <th>Cost</th>
+       <th>Market Value</th>
+       <th>Return</th>
+       <th>% Return</th>
+       <th>Select Coin</th>
+     </tr>
+   </thead>
+     <tbody class="table-body test-list">
+    //COPY THE CODE GENERATED HERE
+     </tbody>
+
+   </table>
+   `;
+   let newMarkup = document.querySelector('.markup');
+   newMarkup.append(markup)
     function updateRow(e){
         rowNumber = parseInt(e.target.value);
     }
@@ -186,8 +208,10 @@ window.addEventListener('DOMContentLoaded', (event) => {
     }).then(e =>{
         //Handle input events
         let searchField = document.getElementById('search');
-        let selectAllTr = document.querySelectorAll('.table-rows');
+        
+        let selectAllTr = document.querySelectorAll('tr.table-rows');
         selectAllTr.forEach((tr)=>{
+            console.log(tr)
             //Select each element
             tr.parentElement.parentElement.style.color = color.value;
             let nameInputImage = tr.childNodes[0].childNodes[0];
@@ -287,9 +311,49 @@ window.addEventListener('DOMContentLoaded', (event) => {
                     //preturn
                     tr.appendChild(percntageReurnTdTag);
 
+                    
+
                     newTbody.appendChild(tr);
 
-                    
+                let codeHtml = document.querySelector('.code');
+                let rowClassList = duplicateRow.classList.value;
+                let nameTdClassList = duplicateRow.childNodes[0].classList.value;
+                let quantityTdClassList = duplicateRow.childNodes[1].classList.value;
+                let quantityInputClassList = duplicateRow.childNodes[1].childNodes[0].classList.value;
+                let purchasePriceTdClassList = duplicateRow.childNodes[2].classList.value;
+                let purchasePriceInputClassList = duplicateRow.childNodes[2].childNodes[0].classList.value;
+                let priceTdClassList = duplicateRow.childNodes[3].classList.value;
+                let costTdClassList = duplicateRow.childNodes[4].classList.value;
+                let marketValueTdClassList = duplicateRow.childNodes[5].classList.value;
+                let ReturnTdClassList = duplicateRow.childNodes[6].classList.value;
+                let percntageReturnTdClassList = duplicateRow.childNodes[7].classList.value;
+                
+                async function insertElements(){
+                await codeHtml.append( 
+                `<tr class= '${rowClassList}'>
+                    <td class='${nameTdClassList}'>
+                        <img src= '${nameSrc}' style='width:20px'>
+                        <span>${nameCoin}<span>
+                    </td>
+                    <td class='${quantityTdClassList}'>
+                        <input class = '${quantityInputClassList}' type="number" value='1'>
+                    </td>
+                    <td class='${purchasePriceTdClassList}'>
+                        <input class='${purchasePriceInputClassList}' type="number">
+                    </td>
+                    <td class='${priceTdClassList}'>${priceText}</td>
+                    <td class='${costTdClassList }'>${costText}</td>
+                    <td class='${marketValueTdClassList }'>${marketValueText}</td>
+                    <td class='${ReturnTdClassList}'>${ReturnText}</td>
+                    <td class='${percntageReturnTdClassList}'>${percntageReturnText}</td>
+
+                </tr>`
+                );
+            }
+
+            insertElements()
+
+
                     
                     } else if(!box.checked){
                         let newTbody = document.querySelector('.new-tbody');
@@ -315,8 +379,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 }
                 }
         })
-        
-        
+
     }).catch(err => console.log(err));
     }
 });

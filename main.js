@@ -208,10 +208,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
     }).then(e =>{
         //Handle input events
         let searchField = document.getElementById('search');
+        let selectAllTr;
+        setTimeout(()=>{selectAllTr = document.querySelectorAll('.table-rows')},1000)
         
-        let selectAllTr = document.querySelectorAll('tr.table-rows');
+        setTimeout(()=>{
         selectAllTr.forEach((tr)=>{
-            console.log(tr)
+
             //Select each element
             tr.parentElement.parentElement.style.color = color.value;
             let nameInputImage = tr.childNodes[0].childNodes[0];
@@ -242,7 +244,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
             let code = document.querySelector('.html-code')
             checkBox.forEach((box)=>{
                 box.addEventListener('change', function(e) {
-                    if (box.checked) {
+                    let newTbody;
+                    if (box.checked == true) {
                     let duplicateRow = box.parentNode.parentNode;
                     let nameSrc = duplicateRow.childNodes[0].childNodes[0].src;
                     let nameCoin = duplicateRow.childNodes[0].childNodes[1].textContent;
@@ -255,7 +258,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
                     let percntageReturnText = duplicateRow.childNodes[7].textContent;
                     let selectBoxClassList = duplicateRow.childNodes[8].childNodes[0].classList.value;
                     // let addButtonClassList = duplicateRow.childNodes[9].childNodes[0].classList.value;
-                    let newTbody = document.querySelector('.new-tbody');
+                    newTbody = document.querySelector('.new-tbody');
                     let tr = document.createElement('tr');
                     let tdName = document.createElement('td');
                     let imgTag = document.createElement('img');
@@ -355,14 +358,16 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 
                     
-                    } else if(!box.checked){
+                    } else if(box.checked == false){
                         let newTbody = document.querySelector('.new-tbody');
                         newTbody.appendChild('');
                     }
                   });
+
+                  
                   
             })
-            checkBox.remove(checkBox.length - 2)
+            // checkBox.remove(checkBox.length - 2)
             
             //function to do input calculations
             function updateValue(e) {
@@ -379,7 +384,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 }
                 }
         })
-
+    },2000)
     }).catch(err => console.log(err));
     }
 });

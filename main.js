@@ -9,28 +9,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     let previous = document.querySelector('#previous');
     let color = document.querySelector('#color');
     let border = document.querySelector('#border');
-    let markup = ` <table class="table none" style="border: 1px solid black;">
-    <thead>
-     <tr>
-       <th>Name</th>
-       <th>Quantity</th>
-       <th>Purchase Price</th>
-       <th>Price</th>
-       <th>Cost</th>
-       <th>Market Value</th>
-       <th>Return</th>
-       <th>% Return</th>
-       <th>Select Coin</th>
-     </tr>
-   </thead>
-     <tbody class="table-body test-list">
-     <!-- COPY THE CODE GENERATED HERE -->
-     </tbody>
 
-   </table>
-   `;
-   let newMarkup = document.querySelector('.markup');
-   newMarkup.append(markup)
     function updateRow(e){
         rowNumber = parseInt(e.target.value);
     }
@@ -69,7 +48,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
         
     // Making the API call
     const baseUrl = "https://api.coingecko.com/api/v3/";
-    const PriceAndMarketCap = "https://api.coingecko.com/api/v3/https://api.coingecko.com/api/v3/";
+  
     async function getCoinList(){
          //Select custom properties to generate the table
         
@@ -221,8 +200,32 @@ window.addEventListener('DOMContentLoaded', (event) => {
         //Handle input events
         let searchField = document.getElementById('search');
         let selectAllTr = document.querySelectorAll('.table-rows')
-        
+        let pre = document.querySelector('.pre');
+        let post = document.querySelector('.post');
+        pre.style.display = 'none';
+        post.style.display = 'none';
+        pre.append(`
+        <table class="table none" style="border: 1px solid black;border-collapse:colapse;width:100vw">
+                    <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Date</th>
+                      <th>Quantity</th>
+                      <th>Purchase Price</th>
+                      <th>Price</th>
+                      <th>Cost</th>
+                      <th>Market Value</th>
+                      <th>Return</th>
+                      <th>% Return</th>
+                    </tr>
+                  </thead>
+                    <tbody class="table-body test-list">
+        `)
+        post.append(`
+            </tbody>
 
+      </table>
+        `)
         selectAllTr.forEach((tr)=>{
  
             //Select each element
@@ -253,152 +256,163 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 }
             }
         
-            let code = document.querySelectorAll('.select-checkbox')
-            code.forEach((c)=>{
+            // let code = document.querySelectorAll('.select-checkbox')
+            // code.forEach((c)=>{
+            // c.addEventListener('change', function(e) {
+            // let newRows = document.querySelectorAll('.table-rows');
+            // newRows.forEach((box)=>{
+                
+            //         let newTbody;
+                    
+            //       });
+
+            //     }) 
+            // })
+
+            let generate= document.querySelector('#generate');
+
+            generate.addEventListener('click',(e)=>{
+              e.preventDefault();
+              pre.style.display = '';
+              post.style.display = '';
+              let newTbody;
+              if(tr.childNodes[9].childNodes[0].checked){
+                newTbody = document.querySelector('.new-tbody');
+                let nameSrc = tr.childNodes[0].childNodes[0].src;
+                let nameCoin = tr.childNodes[0].childNodes[1].textContent;
+                let dateValue = tr.childNodes[1].childNodes[0].value
+                let quantityValue = tr.childNodes[2].childNodes[0].value
+                let purchasePriceValue = tr.childNodes[3].childNodes[0].value
+                let priceText = tr.childNodes[4].textContent;
+                let costText = tr.childNodes[5].textContent;
+                let marketValueText = tr.childNodes[6].textContent;
+                let ReturnText = tr.childNodes[7].textContent;
+                let percntageReturnText = tr.childNodes[8].textContent;
+                let selectBoxClassList = tr.childNodes[9].childNodes[0].classList.value;
+
+                let newTr = document.createElement('tr');
+                let tdName = document.createElement('td');
+                let imgTag = document.createElement('img');
+                imgTag.src = nameSrc;
+                imgTag.style.width = '20px';
+                let spanTag = document.createElement('span');
+                spanTag.textContent = nameCoin;
+                let dateTdTag = document.createElement('td');
+                let dateInputTag= document.createElement('input');
+                dateInputTag.type = 'text';
+                let qtTdTag = document.createElement('td');
+                let qtInputTag= document.createElement('input');
+                qtInputTag.type = 'number';
+                let ppTdTag = document.createElement('td');
+                let ppInputTag= document.createElement('input');
+                ppInputTag.type = 'number';
+                let priceTdTag = document.createElement('td');
+                priceTdTag.textContent = priceText;
+                let costTdTag = document.createElement('td');
+                costTdTag.textContent = costText;
+                let marketValueTdTag = document.createElement('td');
+                marketValueTdTag.textContent = marketValueText;
+                let returnTdTag = document.createElement('td');
+                returnTdTag.textContent = ReturnText;
+                let percntageReurnTdTag = document.createElement('td');
+                percntageReurnTdTag.textContent = percntageReturnText;
+
+                //name
+                tdName.appendChild(imgTag);
+                tdName.appendChild(spanTag);
+                newTr.appendChild(tdName);
+
+                //quantity
+                dateTdTag.textContent = dateValue;
+                newTr.appendChild(dateTdTag);
+
+                //quantity
+                qtTdTag.textContent = quantityValue;
+                newTr.appendChild(qtTdTag);
+                //purchase price
+                ppTdTag.textContent = purchasePriceValue;
+                newTr.appendChild(ppTdTag);
+
+                //price
+                newTr.appendChild(priceTdTag);
+
+                //cost
+                newTr.appendChild(costTdTag);
+
+                //marketvalue
+                newTr.appendChild(marketValueTdTag);
+
+                //return
+                newTr.appendChild(returnTdTag);
+
+                //preturn
+                newTr.appendChild(percntageReurnTdTag);
 
             
-            c.addEventListener('change', function(e) {
-            let newRows = document.querySelectorAll('.table-rows');
-            newRows.forEach((box)=>{
-                
-                    let newTbody;
-                    if (box.childNodes[9].childNodes[0].checked == true) {
-                    let duplicateRow = box;
-                    let nameSrc = duplicateRow.childNodes[0].childNodes[0].src;
-                    let nameCoin = duplicateRow.childNodes[0].childNodes[1].textContent;
-                    let dateValue = duplicateRow.childNodes[1].childNodes[0].value
-                    let quantityValue = duplicateRow.childNodes[2].childNodes[0].value
-                    let purchasePriceValue = duplicateRow.childNodes[3].childNodes[0].value
-                    let priceText = duplicateRow.childNodes[4].textContent;
-                    let costText = duplicateRow.childNodes[5].textContent;
-                    let marketValueText = duplicateRow.childNodes[6].textContent;
-                    let ReturnText = duplicateRow.childNodes[7].textContent;
-                    let percntageReturnText = duplicateRow.childNodes[8].textContent;
-                    let selectBoxClassList = duplicateRow.childNodes[9].childNodes[0].classList.value;
-                    // let addButtonClassList = duplicateRow.childNodes[9].childNodes[0].classList.value;
-                    newTbody = document.querySelector('.new-tbody');
-                    let tr = document.createElement('tr');
-                    let tdName = document.createElement('td');
-                    let imgTag = document.createElement('img');
-                    imgTag.src = nameSrc;
-                    imgTag.style.width = '20px';
-                    let spanTag = document.createElement('span');
-                    spanTag.textContent = nameCoin;
-                    let dateTdTag = document.createElement('td');
-                    let dateInputTag= document.createElement('input');
-                    dateInputTag.type = 'text';
-                    let qtTdTag = document.createElement('td');
-                    let qtInputTag= document.createElement('input');
-                    qtInputTag.type = 'number';
-                    qtInputTag.addEventListener('input',function(e){
-                        console.log(e.target.value);
-                    })
-                    let ppTdTag = document.createElement('td');
-                    let ppInputTag= document.createElement('input');
-                    ppInputTag.type = 'number';
-                    let priceTdTag = document.createElement('td');
-                    priceTdTag.textContent = priceText;
-                    let costTdTag = document.createElement('td');
-                    costTdTag.textContent = costText;
-                    let marketValueTdTag = document.createElement('td');
-                    marketValueTdTag.textContent = marketValueText;
-                    let returnTdTag = document.createElement('td');
-                    returnTdTag.textContent = ReturnText;
-                    let percntageReurnTdTag = document.createElement('td');
-                    percntageReurnTdTag.textContent = percntageReturnText;
-                    
-                    //name
-                    tdName.appendChild(imgTag);
-                    tdName.appendChild(spanTag);
-                    tr.appendChild(tdName);
+                newTbody.appendChild(newTr);
 
-                    //quantity
-                    dateTdTag.textContent = dateValue;
-                    tr.appendChild(dateTdTag);
-
-                    //quantity
-                    qtTdTag.textContent = quantityValue;
-                    tr.appendChild(qtTdTag);
-                    //purchase price
-                    ppTdTag.textContent = purchasePriceValue;
-                    tr.appendChild(ppTdTag);
-
-                    //price
-                    tr.appendChild(priceTdTag);
-
-                    //cost
-                    tr.appendChild(costTdTag);
-
-                    //marketvalue
-                    tr.appendChild(marketValueTdTag);
-
-                    //return
-                    tr.appendChild(returnTdTag);
-
-                    //preturn
-                    tr.appendChild(percntageReurnTdTag);
-
-                    
-
-                    newTbody.appendChild(tr);
-
-                    
 
                 let codeHtml = document.querySelector('.code');
-                let rowClassList = duplicateRow.classList.value;
-                let nameTdClassList = duplicateRow.childNodes[0].classList.value;
-                let dateTdClassList = duplicateRow.childNodes[1].classList.value;
-                let dateInputClassList = duplicateRow.childNodes[1].childNodes[0].classList.value;
-                let quantityTdClassList = duplicateRow.childNodes[2].classList.value;
-                let quantityInputClassList = duplicateRow.childNodes[2].childNodes[0].classList.value;
-                let purchasePriceTdClassList = duplicateRow.childNodes[3].classList.value;
-                let purchasePriceInputClassList = duplicateRow.childNodes[3].childNodes[0].classList.value;
-                let priceTdClassList = duplicateRow.childNodes[4].classList.value;
-                let costTdClassList = duplicateRow.childNodes[5].classList.value;
-                let marketValueTdClassList = duplicateRow.childNodes[6].classList.value;
-                let ReturnTdClassList = duplicateRow.childNodes[7].classList.value;
-                let percntageReturnTdClassList = duplicateRow.childNodes[8].classList.value;
-                
+                let rowClassList = tr.classList.value;
+                let nameTdClassList = tr.childNodes[0].classList.value;
+                let dateTdClassList = tr.childNodes[1].classList.value;
+                let dateInputClassList = tr.childNodes[1].childNodes[0].value;
+                let quantityTdClassList = tr.childNodes[2].classList.value;
+                let quantityInputClassList = tr.childNodes[2].childNodes[0].value;
+                let purchasePriceTdClassList = tr.childNodes[3].classList.value;
+                let purchasePriceInputClassList = tr.childNodes[3].childNodes[0].value;
+                let priceTdClassList = tr.childNodes[4].classList.value;
+                let costTdClassList = tr.childNodes[5].classList.value;
+                let marketValueTdClassList = tr.childNodes[6].classList.value;
+                let ReturnTdClassList = tr.childNodes[7].classList.value;
+                let percntageReturnTdClassList = tr.childNodes[8].classList.value;
+
                 async function insertElements(){
                 await codeHtml.append( 
-                `<tr class= '${rowClassList}'>
-                    <td class='${nameTdClassList}'>
+                `
+                
+                    
+
+                      <tr class= '${rowClassList}'>
+                    <td style="text-align:center" class='${nameTdClassList}'>
                         <img src= '${nameSrc}' style='width:20px'>
                         <span>${nameCoin}<span>
                     </td>
-                    <td class='${dateTdClassList}'>
-                        <input class = '${dateInputClassList}' type="number" value='1'>
+                    <td style="text-align:center" class='${dateTdClassList}'>
+                        ${dateInputClassList}
                     </td>
-                    <td class='${quantityTdClassList}'>
-                        <input class = '${quantityInputClassList}' type="number" value='1'>
+                    <td style="text-align:center" class='${quantityTdClassList}'>
+                       ${quantityInputClassList}
                     </td>
-                    <td class='${purchasePriceTdClassList}'>
-                        <input class='${purchasePriceInputClassList}' type="number">
+                    <td style="text-align:center" class='${purchasePriceTdClassList}'>
+                        ${purchasePriceInputClassList}
                     </td>
-                    <td class='${priceTdClassList}'>${priceText}</td>
-                    <td class='${costTdClassList }'>${costText}</td>
-                    <td class='${marketValueTdClassList }'>${marketValueText}</td>
-                    <td class='${ReturnTdClassList}'>${ReturnText}</td>
-                    <td class='${percntageReturnTdClassList}'>${percntageReturnText}</td>
+                    <td style="text-align:center" class='${priceTdClassList}'>${priceText}</td>
+                    <td style="text-align:center" class='${costTdClassList }'>${costText}</td>
+                    <td style="text-align:center" class='${marketValueTdClassList }'>${marketValueText}</td>
+                    <td style="text-align:center" class='${ReturnTdClassList}'>${ReturnText}</td>
+                    <td style="text-align:center" class='${percntageReturnTdClassList}'>${percntageReturnText}</td>
 
-                </tr> `
+                </tr>
+
+                   
+
+                `
                 );
-                let br = document.createElement('hr');
-                codeHtml.appendChild(br);
+
             }
 
             insertElements()
 
-
-                    
-                    } else if(box.checked == false){
+                console.log(percntageReturnTdClassList);
+              } else if(tr.checked == false){
                         
                         newTbody.appendChild('');
                     }
-                  });
 
-                }) 
+
             })
+            
             
             // checkBox.remove(checkBox.length - 2)
             
@@ -408,8 +422,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
                    let costValue= quantityInputPlace.value * purchasePriceInputPlace.value;
                    let price = parseFloat(priceTdPlace.textContent)
                    let marketValue = price * quantityInputPlace.value;
-                   let rateOfReturn = marketValue - costValue;
-                   let percentageRateOfReturn = ((marketValue - costValue)/(costValue) * 100);
+                   let rateOfReturn = (marketValue - costValue).toFixed(2);
+                   let percentageRateOfReturn = ((marketValue - costValue)/(costValue) * 100).toFixed(2);
                    costTdPlace.textContent = costValue;
                    marketValueTdPlace.textContent = marketValue;
                    returnPlace.textContent = rateOfReturn;

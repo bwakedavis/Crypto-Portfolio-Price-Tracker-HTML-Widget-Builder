@@ -9,7 +9,58 @@ window.addEventListener('DOMContentLoaded', (event) => {
     let previous = document.querySelector('#previous');
     let color = document.querySelector('#color');
     let border = document.querySelector('#border');
+    let appendJs = document.querySelector('.js');
+    appendJs.style.display = 'none';
+    let coinId;
+    appendJs.append(
+      `
+      <script>
+        window.onload = function(e){ \
+            e.preventDefault(); 
 
+            let tablerows = document.querySelectorAll('.table-rows'); 
+            tablerows.forEach((tr)=>{ 
+
+                let coinId = tr.classList.value.slice(11); 
+                async function getCoinList(){  
+               
+                
+                let response = await fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=" + ${coinId} + "&order=market_cap_desc&per_page=100&page=1&sparkline=false");
+                let data = await response.json();
+                return data;
+                };
+
+                getCoinList().then((data)=>{
+                    data.forEach((coin)=>{
+                        tr.childNodes[9].textContent = coin.current_price;
+                        
+                        let price = parseFloat(coin.current_price);
+                        let quantityValue = parseFloat(tr.childNodes[5].textContent);
+                        let purchasePrice = parseFloat(tr.childNodes[7].textContent);
+                        let cost = tr.childNodes[11];
+                        cost.textContent = quantityValue * purchasePrice;
+                        let costValue = cost.textContent;
+                        let marketValue = tr.childNodes[13];
+                        marketValue.textContent = price * quantityValue;
+                        mValue = marketValue.textContent;
+                        let returns = tr.childNodes[15];
+                        returns.textContent = (parseFloat(mValue) - parseFloat(costValue)).toFixed(2);
+                        let percentageReturns = tr.childNodes[17];
+                        percentageReturns.textContent = ((parseFloat(mValue) - costValue)/(costValue) * 100).toFixed(2);
+                        
+                    })
+                    
+                })
+                
+            })
+
+
+  
+    
+        }
+    < /script>
+      `
+    )
     function updateRow(e){
         rowNumber = parseInt(e.target.value);
     }
@@ -48,7 +99,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
         
     // Making the API call
     const baseUrl = "https://api.coingecko.com/api/v3/";
-  
+    const PriceAndMarketCap = "https://api.coingecko.com/api/v3/https://api.coingecko.com/api/v3/";
     async function getCoinList(){
          //Select custom properties to generate the table
         
@@ -273,6 +324,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
             generate.addEventListener('click',(e)=>{
               e.preventDefault();
+              appendJs.style.display = '';
               pre.style.display = '';
               post.style.display = '';
               let newTbody;
@@ -373,7 +425,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 
                     
 
-                      <tr class= '${rowClassList}'>
+                      <tr class= '${rowClassList}' style="text-align:center">
                     <td style="text-align:center" class='${nameTdClassList}'>
                         <img src= '${nameSrc}' style='width:20px'>
                         <span>${nameCoin}<span>

@@ -262,12 +262,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
                       <th>Name</th>
                       <th>Date</th>
                       <th>Quantity</th>
-                      <th>Purchase Price</th>
-                      <th>Price</th>
-                      <th>Cost</th>
-                      <th>Market Value</th>
-                      <th>Return</th>
-                      <th>% Return</th>
+                      <th>Purchase Price (&#36;) </th>
+                      <th>Price (&#36;) </th>
+                      <th>Cost (&#36;) </th>
+                      <th>Market Value (&#36;) </th>
+                      <th>Return (&#36;) </th>
+                      <th>Return (&#37;) </th>
                     </tr>
                   </thead>
                     <tbody class="table-body test-list">
@@ -425,25 +425,25 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 
                     
 
-                      <tr class= '${rowClassList}' style="text-align:center">
-                    <td style="text-align:center" class='${nameTdClassList}'>
+                      <tr class= '${rowClassList}' style="text-align:left">
+                    <td style="text-align:left" class='${nameTdClassList}'>
                         <img src= '${nameSrc}' style='width:20px'>
                         <span>${nameCoin}<span>
                     </td>
-                    <td style="text-align:center" class='${dateTdClassList}'>
+                    <td style="text-align:left" class='${dateTdClassList}'>
                         ${dateInputClassList}
                     </td>
-                    <td style="text-align:center" class='${quantityTdClassList}'>
+                    <td style="text-align:left" class='${quantityTdClassList}'>
                        ${quantityInputClassList}
                     </td>
-                    <td style="text-align:center" class='${purchasePriceTdClassList}'>
-                        ${purchasePriceInputClassList}
+                    <td style="text-align:left" class='${purchasePriceTdClassList}'>
+                    ${purchasePriceInputClassList}
                     </td>
-                    <td style="text-align:center" class='${priceTdClassList}'>${priceText}</td>
-                    <td style="text-align:center" class='${costTdClassList }'>${costText}</td>
-                    <td style="text-align:center" class='${marketValueTdClassList }'>${marketValueText}</td>
-                    <td style="text-align:center" class='${ReturnTdClassList}'>${ReturnText}</td>
-                    <td style="text-align:center" class='${percntageReturnTdClassList}'>${percntageReturnText}</td>
+                    <td style="text-align:left" class='${priceTdClassList}'> ${priceText}</td>
+                    <td style="text-align:left" class='${costTdClassList }'> ${costText}</td>
+                    <td style="text-align:left" class='${marketValueTdClassList }'> ${marketValueText}</td>
+                    <td style="text-align:left" class='${ReturnTdClassList}'> ${ReturnText}</td>
+                    <td style="text-align:left" class='${percntageReturnTdClassList}'>${percntageReturnText} </td>
 
                 </tr>
 
